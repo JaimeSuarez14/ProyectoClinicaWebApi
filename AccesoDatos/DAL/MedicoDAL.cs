@@ -62,7 +62,9 @@ namespace AccesoDatos.DAL
             long id = 0;
             using (var db = db_clinicaEntities.Create())
             {
-
+                item.borrado= false;
+                db.Medico.Add(item);
+                db.SaveChanges();
             }
             return id;
 
@@ -71,6 +73,18 @@ namespace AccesoDatos.DAL
         {
             using (var db = db_clinicaEntities.Create())
             {
+                var itemActualizar = db.Medico.Where(x => !x.borrado && x.id == item.id).FirstOrDefault();
+                if (itemActualizar != null)
+                {
+                    itemActualizar.cedula = item.cedula;
+                    itemActualizar.nombre = item.nombre;
+                    itemActualizar.apellidoPaterno = item.apellidoPaterno;
+                    itemActualizar.apellidoMaterno = item.apellidoMaterno;
+                    itemActualizar.esEspecialista = item.esEspecialista;
+                    itemActualizar.habilitado = item.habilitado;
+                    db.Entry(itemActualizar).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
 
             }
         }
@@ -78,7 +92,13 @@ namespace AccesoDatos.DAL
         {
             using (var db = db_clinicaEntities.Create())
             {
-
+                var items = db.Medico.Where(x => !x.borrado && ids.Contains(x.id)).ToList();
+                foreach (var item in items)
+                {
+                    item.borrado = true;
+                    db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                }
+                db.SaveChanges();
             }
         }
     }
