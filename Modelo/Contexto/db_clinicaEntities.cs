@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Modelo.Modelos
 {
-    public partial class DdConexion: DbContext
+    public partial class db_clinicaEntities: DbContext
     {
-        private DbConexion( string stringConexion)
+        private db_clinicaEntities( string stringConexion)
             : base(stringConexion)
         {
             this.Configuration.LazyLoadingEnabled = false;
@@ -17,9 +17,9 @@ namespace Modelo.Modelos
             this.Database.CommandTimeout = 900;
         }
 
-        public static DdConexion Create()
+        public static db_clinicaEntities Create()
         {
-            return new DdConexion("name=db_clinicaEntities");
+            return new db_clinicaEntities("name=db_clinicaEntities");
         }
     }
 }
