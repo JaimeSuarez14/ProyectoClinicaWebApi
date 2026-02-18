@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modelo.Metadatos
+namespace Modelo.Modelos
 {
     [MetadataType(typeof(IngresoMetaData))]
     public partial class Ingreso
