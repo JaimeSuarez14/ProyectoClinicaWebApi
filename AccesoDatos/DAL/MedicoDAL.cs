@@ -43,6 +43,16 @@ namespace AccesoDatos.DAL
             MedicoVMR item = null;
             using (var db = db_clinicaEntities.Create())
             {
+                item = db.Medico.Where(x => !x.borrado && x.id == id).Select(x => new MedicoVMR
+                {
+                    id = x.id,
+                    cedula = x.cedula,
+                    nombre = x.nombre,
+                    apellidoPaterno = x.apellidoPaterno,
+                    apellidoMaterno = x.apellidoMaterno,
+                    esEspecialista = x.esEspecialista,
+                    habilitado = x.habilitado
+                }).FirstOrDefault();
 
             }
             return item;
