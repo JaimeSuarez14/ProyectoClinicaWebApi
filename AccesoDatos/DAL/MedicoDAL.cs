@@ -30,6 +30,11 @@ namespace AccesoDatos.DAL
                 }
 
                 resultado.cantidad = query.Count();
+                resultado.elementos = query
+                    .OrderBy(x => x.id)  // Ordenar por id para garantizar la consistencia de la paginación
+                    .Skip(pagina * cantidad) // Saltar los elementos de las páginas anteriores
+                    .Take(cantidad) // Tomar solo la cantidad de elementos para la página actual
+                    .ToList(); // Ejecutar la consulta y obtener los resultados
             }
             return resultado;
         }
