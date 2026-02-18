@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexto\DdConexion.cs" />
+    <Compile Include="Metadatos\Egreso.cs" />
+    <Compile Include="Metadatos\Medico.cs" />
     <Compile Include="Modelos\Egreso.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
