@@ -1,4 +1,5 @@
 ﻿using Comun.ViewModels;
+using Modelo.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,19 +15,22 @@ namespace AccesoDatos.DAL
             ListadoPaginadoVMR<MedicoVMR> resultado = new ListadoPaginadoVMR<MedicoVMR>();
             return resultado;
         }
-        LeerUno()
+        public static MedicoVMR LeerUno( long id)
+        {
+            MedicoVMR item = null;
+            return item;
+        }
+        public static long Crear(Medico item)
+        {
+            long id = 0;
+            return id;
+
+        }
+        public static void Actualizar(MedicoVMR item)
         {
 
         }
-        Crear()
-        {
-
-        }
-        Actualizar()
-        {
-
-        }
-        Eliminar()
+        public static void Eliminar(List<long> ids)
         {
 
         }
