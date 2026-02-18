@@ -9,6 +9,15 @@ using System.Threading.Tasks;
 
 namespace AccesoDatos.DAL
 {
+    /*
+     * Descripcion::
+     * Este código define la clase MedicoDAL, 
+     * que es una capa de acceso a datos (DAL) para la entidad Medico en una aplicación de gestión clínica. 
+     * La clase proporciona métodos para realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) 
+     * en la base de datos utilizando Entity Framework. Los métodos incluyen: 
+     * 
+     *
+     **/
     public class MedicoDAL
     {
         public static ListadoPaginadoVMR<MedicoVMR> LeerTodos(int cantidad, int pagina, string textoBusqueda)
