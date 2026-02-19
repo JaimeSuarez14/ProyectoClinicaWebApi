@@ -31,6 +31,7 @@ namespace AccesoDatos.DAL
                     cedula = x.cedula,
                     nombre = x.nombre + " " + x.apellidoPaterno + (x.apellidoMaterno != null ? " " + x.apellidoMaterno : ""),
                     esEspecialista = x.esEspecialista,
+                    habilitado = x.habilitado,
                 });
 
                 if(!string.IsNullOrEmpty(textoBusqueda))
@@ -68,14 +69,14 @@ namespace AccesoDatos.DAL
         }
         public static long Crear(Medico item)
         {
-            long id = 0;
+            
             using (var db = db_clinicaEntities.Create())
             {
                 item.borrado= false;
                 db.Medico.Add(item);
                 db.SaveChanges();
             }
-            return id;
+            return item.id;
 
         }
         public static void Actualizar(MedicoVMR item)

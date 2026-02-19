@@ -62,19 +62,64 @@ namespace WebApi1.Controllers
         [HttpPost]
         public IActionResult Crear([FromBody] Medico item)
         {
-            return StatusCode(501, new { mensaje = "No implementado: Crear" });
+            var respuesta = new RespuestaVMR<long?>();
+            try
+            {
+                respuesta.datos = MedicoBLL.Crear(item);
+                respuesta.codigo = System.Net.HttpStatusCode.OK;
+                return Ok(respuesta);
+            }
+            catch (Exception ex)
+            {
+                respuesta.codigo = System.Net.HttpStatusCode.InternalServerError;
+                respuesta.datos = null;
+                respuesta.mensajes.Add(ex.Message);
+                respuesta.mensajes.Add(ex.ToString());
+                return StatusCode((int)respuesta.codigo, respuesta);
+            }
         }
 
         [HttpPut("{id:long}")]
         public IActionResult Actualizar(long id, [FromBody] MedicoVMR item)
         {
-            return StatusCode(501, new { mensaje = "No implementado: Actualizar" });
+            var resultado = new RespuestaVMR<bool>();
+            try
+            {
+                item.id = id;
+                MedicoBLL.Actualizar(item);
+                resultado.datos = true;
+                resultado.codigo = System.Net.HttpStatusCode.OK;
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                resultado.codigo = System.Net.HttpStatusCode.InternalServerError;
+                resultado.datos = false;
+                resultado.mensajes.Add(ex.Message);
+                resultado.mensajes.Add(ex.ToString());
+                return StatusCode((int)resultado.codigo, resultado);
+            }
         }
 
-        [HttpPost("Eliminar")]
+        [HttpPost("eliminar")] //enviar asi en el body [2]
         public IActionResult Eliminar([FromBody] List<long> ids)
         {
-            return StatusCode(501, new { mensaje = "No implementado: Eliminar" });
+            var resultado = new RespuestaVMR<bool>();
+            try
+            {
+                MedicoBLL.Eliminar(ids);
+                resultado.datos = true;
+                resultado.codigo = System.Net.HttpStatusCode.OK;
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                resultado.codigo = System.Net.HttpStatusCode.InternalServerError;
+                resultado.datos = false;
+                resultado.mensajes.Add(ex.Message);
+                resultado.mensajes.Add(ex.ToString());
+                return StatusCode((int)resultado.codigo, resultado);
+            }
         }
     }
 }
