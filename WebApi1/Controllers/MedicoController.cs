@@ -1,10 +1,12 @@
 ﻿using Comun.ViewModels;
 using Logica.BLL;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Modelo.Modelos;
 
 namespace WebApi1.Controllers
 {
+    [EnableCors("*")]
     [ApiController]
     [Route("api/[controller]")]
     public class MedicoController : ControllerBase
@@ -32,8 +34,29 @@ namespace WebApi1.Controllers
         [HttpGet("{id:long}")]
         public IActionResult LeerUno(long id)
         {
-            // Implementación simple de placeholder para API: devolver 501 si no está implementado.
-            return StatusCode(501, new { mensaje = "No implementado: LeerUno" });
+            var respuesta = new RespuestaVMR<MedicoVMR>();
+            try
+            {
+                respuesta.datos = MedicoBLL.LeerUno(id);
+                if(respuesta.datos ==null && respuesta.mensajes.Count == 0)
+                {
+                    respuesta.codigo = System.Net.HttpStatusCode.NotFound;
+                    respuesta.mensajes.Add("Elemento no encontrado");
+                    return StatusCode((int)respuesta.codigo, respuesta);
+                }
+                respuesta.codigo = System.Net.HttpStatusCode.OK;
+                return Ok(respuesta);
+            }
+            catch(Exception ex)
+            {
+                respuesta.codigo = System.Net.HttpStatusCode.InternalServerError;
+                respuesta.datos = null;
+                respuesta.mensajes.Add(ex.Message);
+                respuesta.mensajes.Add(ex.ToString());
+                return StatusCode((int)respuesta.codigo, respuesta);
+            }
+
+            
         }
 
         [HttpPost]
