@@ -6,7 +6,6 @@ using Modelo.Modelos;
 
 namespace WebApi1.Controllers
 {
-    [EnableCors("*")]
     [ApiController]
     [Route("api/[controller]")]
     public class MedicoController : ControllerBase
